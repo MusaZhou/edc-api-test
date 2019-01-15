@@ -4,8 +4,70 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8cf2c9d7a7fa61b7ebd07eeda368d51a",
+    "content-hash": "2c969fea104ddcfc167780e7356875cf",
     "packages": [
+        {
+            "name": "boaideas/laravel-cli-create-user",
+            "version": "v1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/amosmos/laravel-cli-create-user.git",
+                "reference": "d726fec1f50c3fa4a04b08f4131c574c351f4f7d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/amosmos/laravel-cli-create-user/zipball/d726fec1f50c3fa4a04b08f4131c574c351f4f7d",
+                "reference": "d726fec1f50c3fa4a04b08f4131c574c351f4f7d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^5.3.23",
+                "illuminate/support": "^5.3.23",
+                "php": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BOAIdeas\\CreateUser\\CreateUserServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BOAIdeas\\CreateUser\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Amos Shacham",
+                    "email": "amos@boaideas.com",
+                    "homepage": "https://boaideas.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An artisan command to create, list and remove users in a laravel application from the cli",
+            "homepage": "https://github.com/amosmos/laravel-cli-create-user",
+            "keywords": [
+                "BOA Ideas",
+                "artisan",
+                "cli",
+                "create",
+                "database",
+                "eloquent",
+                "email",
+                "laravel",
+                "laravel-create-user",
+                "list",
+                "remove",
+                "user"
+            ],
+            "time": "2017-10-20T13:48:55+00:00"
+        },
         {
             "name": "defuse/php-encryption",
             "version": "v2.2.1",
