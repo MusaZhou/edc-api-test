@@ -15,9 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-// Auth::routes(['register' => false]);
+// Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin_register', 'Auth\AdminController@showRegisterAdminForm')->name('admin_register_view');
+Route::post('/admin_register', 'Auth\AdminController@registerAdmin')->name('admin_register');
 
 
