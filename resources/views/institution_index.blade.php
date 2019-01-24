@@ -9,18 +9,20 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <table id="institution_list" class="table table-striped table-bordered" style="width:100%">
+            <table id="institution_list" class="table table-striped table-bordered table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>User</th>
-                        <th>Phone</th>
-                        <th>Address</th>
+                        <th>ID</th>
+                        <th>{{ __('Institution Name') }}</th>
+                        <th>{{ __('User Name') }}</th>
+                        <th>{{ __('Phone') }}</th>
+                        <th>{{ __('Address') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($institution_list as $institution)
                         <tr>
+                            <td>{{ $institution->id }}</td>
                             <td>{{ $institution->name }}</td>
                             <td>{{ $institution->user->name }}</td>
                             <td>{{ $institution->phone }}</td>
@@ -49,20 +51,32 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="email">{{ __('Email') }}</label>
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="{{ __('Email') }}">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="{{ __('Email') }}" required>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong id="error-email"></strong>
+                                    </span>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="username">{{ __('User Name')}}</label>
-                                    <input type="text" class="form-control" name="username" id="username" placeholder="{{ __('User Name') }}">
+                                    <input type="text" class="form-control" name="username" id="username" placeholder="{{ __('User Name') }}" required>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong id="error-username"></strong>
+                                    </span>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="phone">{{ __('Phone')}}</label>
-                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="{{ __('Phone Name') }}">
+                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="{{ __('Phone Name') }}" required>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong id="error-phone"></strong>
+                                    </span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="address">Address</label>
-                                <input type="text" class="form-control" name="address" id="address" placeholder="1234 Main St">
+                                <label for="address">{{ __('Address') }}</label>
+                                <input type="text" class="form-control" name="address" id="address" placeholder="{{ __('Address') }}">
+                                <span class="invalid-feedback" role="alert">
+                                    <strong id="error-address"></strong>
+                                </span>
                             </div>
                             <button type="submit" class="btn btn-primary">{{ __('Edit') }}</button>
                         </form>
@@ -108,9 +122,21 @@
     <script type="text/javascript" src="{{ asset('DataTables/datatables.min.js') }}"></script>
     <script>
         $(function(){
-            $('#institution_list').DataTable({
-                select: true
+            var institutionListTable = $('#institution_list').DataTable({
+                select: { style: 'single'},
+                columnDefs: [
+                    {
+                        'targets': [0],
+                        'visible': false,
+                        'searchable': false
+                    }
+                ]
             });
+
+            institutionListTable.on('select', function(e, dt, type, indexes){
+                var rowData = institutionListTable.row(indexes[0]).data()
+                console.log(rowData);
+            })
         });
     </script>
 @endsection
