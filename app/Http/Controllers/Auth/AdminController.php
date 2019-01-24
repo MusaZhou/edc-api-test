@@ -87,7 +87,9 @@ class AdminController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'institution' => ['required', 'string', 'max:255']
+            'institution' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:20']
         ]);
     }
 
@@ -108,7 +110,11 @@ class AdminController extends Controller
         $role = Role::where('name', '=', 'Institution')->first();  //choose the default role upon user creation.
         $user->attachRole($role);
 
-        $institution = Institution::create(['name' => $data['institution'], 'user_id' => $user->id]);
+        $institution = Institution::create([
+            'name' => $data['institution'], 
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'user_id' => $user->id]);
 
         return $user;
     }

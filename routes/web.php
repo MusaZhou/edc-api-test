@@ -18,6 +18,7 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin_register', 'Auth\AdminController@showRegisterAdminForm')->name('admin_register_view')->middleware('permission:create.users');
-Route::post('/admin_register', 'Auth\AdminController@registerAdmin')->name('admin_register')->middleware('permission:create.users');;
-
+Route::post('/admin_register', 'Auth\AdminController@registerAdmin')->name('admin_register')->middleware('permission:create.users');
+Route::get('/institution_register', 'Auth\AdminController@showRegisterInstitutionForm')->name('institution_register_view')->middleware('permission:manage.institutions');
+Route::post('/institution_register', 'Auth\AdminController@registerInstitution')->name('institution_register')->middleware('permission:manage.institutions');
 

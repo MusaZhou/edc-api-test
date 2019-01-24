@@ -53,5 +53,14 @@ class PermissionsTableSeeder extends Seeder
                 'model'       => 'Permission',
             ]);
         }
+
+        if (Permission::where('name', '=', 'Can Manage Institutions')->first() === null) {
+            Permission::create([
+                'name'        => 'Can Manage Institutions',
+                'slug'        => 'manage.institutions',
+                'description' => 'Can manage institutions',
+                'model'       => 'Permission',
+            ]);
+        }
     }
 }

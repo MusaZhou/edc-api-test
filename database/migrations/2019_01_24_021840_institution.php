@@ -20,6 +20,8 @@ class Institution extends Migration
         Schema::create('institutions', function(Blueprint $table){
             $table->increments('id');
             $table->string('name')->nullable();
+            $table->string('address')->nullable();
+            $table->string('phone', 20)->nullable();
             $table->unsignedInteger('user_id')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');

@@ -79,6 +79,12 @@
                     <a href="{{ route('admin_register') }}">{{ __('Create User') }}</a>
                 </li>
                 @endpermission
+
+                @permission('manage.institutions')
+                <li>
+                    <a href="{{ route('institution_register') }}">{{ __('Create Institution') }}</a>
+                </li>
+                @endpermission
                 
             </ul>
 
