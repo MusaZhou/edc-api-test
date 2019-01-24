@@ -30,6 +30,7 @@ class SampleGather extends Migration
             $table->dateTime('RecordDate')->index()->nullable();
 
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

@@ -29,6 +29,7 @@ class CycleCheckDetail extends Migration
             $table->index(['Type', 'No', 'cycle_check_id']);
 
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

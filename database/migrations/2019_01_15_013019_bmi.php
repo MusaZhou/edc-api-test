@@ -28,6 +28,7 @@ class Bmi extends Migration
             $table->dateTime('RecordDate')->index()->nullable();
 
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

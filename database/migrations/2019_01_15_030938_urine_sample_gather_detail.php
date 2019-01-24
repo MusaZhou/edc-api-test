@@ -30,6 +30,7 @@ class UrineSampleGatherDetail extends Migration
             $table->index(['RecordDate', 'urine_sample_gather_id'], 'urine_sample_gather_detail_ru_index');
 
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

@@ -29,6 +29,7 @@ class ScreeningDetail extends Migration
             $table->index(['Type', 'No', 'screening_id']);
 
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

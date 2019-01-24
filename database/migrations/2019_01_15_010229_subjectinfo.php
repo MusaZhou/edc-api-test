@@ -36,6 +36,7 @@ class Subjectinfo extends Migration
             $table->string('Marital', 10)->nullable();
 
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

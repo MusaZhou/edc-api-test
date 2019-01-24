@@ -29,6 +29,7 @@ class CheckIn extends Migration
 
             $table->index(['CycleNo', 'InRegDate']);
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

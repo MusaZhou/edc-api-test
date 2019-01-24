@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Model;
+namespace App\Model\Institution;
+
+use App\Model\SoftDeleteModel;
 
 class BMI extends SoftDeleteModel
 {

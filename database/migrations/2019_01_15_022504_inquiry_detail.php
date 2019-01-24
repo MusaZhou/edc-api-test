@@ -29,6 +29,7 @@ class InquiryDetail extends Migration
             $table->index(['ItemName', 'inquiry_id']);
 
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

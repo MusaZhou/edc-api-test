@@ -25,6 +25,7 @@ class InformedConsent extends Migration
             $table->dateTime('SignDate')->nullable();
 
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

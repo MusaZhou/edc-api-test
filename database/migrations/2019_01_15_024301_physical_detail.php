@@ -29,6 +29,7 @@ class PhysicalDetail extends Migration
             $table->index(['ItemName', 'physical_id']);
 
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

@@ -11,15 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('index');
 
 // Auth::routes();
 Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/admin_register', 'Auth\AdminController@showRegisterAdminForm')->name('admin_register_view');
-Route::post('/admin_register', 'Auth\AdminController@registerAdmin')->name('admin_register');
+Route::get('/admin_register', 'Auth\AdminController@showRegisterAdminForm')->name('admin_register_view')->middleware('permission:create.users');
+Route::post('/admin_register', 'Auth\AdminController@registerAdmin')->name('admin_register')->middleware('permission:create.users');;
 
 

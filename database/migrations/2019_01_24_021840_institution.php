@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Screening extends Migration
+class Institution extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class Screening extends Migration
      */
     public function up()
     {
-        if (Schema::hasTable('screenings')) {
-            Schema::drop('screenings');
+        if (Schema::hasTable('institutions')) {
+            Schema::drop('institutions');
         }
 
-        Schema::create('screenings', function(Blueprint $table){
+        Schema::create('institutions', function(Blueprint $table){
             $table->increments('id');
-            $table->dateTime('ScreeningDate')->nullable();
-            $table->tinyInteger('IsPass')->nullable();
-            $table->string('ExclusionReasons')->nullable();
-            $table->dateTime('RecordDate')->index()->nullable();
+            $table->string('name')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
 
+            $table->foreign('user_id')->references('id')->on('users');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -36,6 +35,8 @@ class Screening extends Migration
      */
     public function down()
     {
-        Schema::drop('screenings');
+        if (Schema::hasTable('institutions')) {
+            Schema::drop('institutions');
+        }
     }
 }
