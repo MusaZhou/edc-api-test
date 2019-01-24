@@ -10,6 +10,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+
+    @section('css')
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Our Custom CSS -->
@@ -21,6 +23,7 @@
             right: -5px;
         }
     </style>
+    @show
 
 </head>
 
@@ -36,7 +39,7 @@
             </div>
 
             <ul class="list-unstyled components">
-                <p>Dummy Heading</p>
+                <p>{{ __('Menu') }}</p>
                 <li class="active">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -51,9 +54,14 @@
                         </li>
                     </ul>
                 </li>
+                @permission('manage.institutions')
                 <li>
-                    <a href="#">About</a>
+                    <a href="{{ route('institution_register') }}">{{ __('Create Institution') }}</a>
                 </li>
+                <li>
+                    <a href="{{ route('institution_index') }}">{{ __('Institutions') }}</a>
+                </li>
+                @endpermission
                 <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
@@ -80,11 +88,7 @@
                 </li>
                 @endpermission
 
-                @permission('manage.institutions')
-                <li>
-                    <a href="{{ route('institution_register') }}">{{ __('Create Institution') }}</a>
-                </li>
-                @endpermission
+                
                 
             </ul>
 
@@ -147,6 +151,7 @@
         </div>
     </div>
 
+    @section('js')
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" ></script>
 
@@ -169,6 +174,7 @@
             });
         });
     </script>
+    @show
 </body>
 
 </html>
