@@ -173,6 +173,14 @@
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
         });
+
+        function disableElements(elements){
+            $(elements).prop('disabled', true);
+        }
+
+        function enableElements(elements){
+            $(elements).prop('disabled', false);
+        }
     </script>
     @show
 </body>

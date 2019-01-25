@@ -12,7 +12,7 @@
             <table id="institution_list" class="table table-striped table-bordered table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Slug</th>
                         <th>{{ __('Institution Name') }}</th>
                         <th>{{ __('User Name') }}</th>
                         <th>{{ __('Phone') }}</th>
@@ -22,7 +22,7 @@
                 <tbody>
                     @foreach ($institution_list as $institution)
                         <tr>
-                            <td>{{ $institution->id }}</td>
+                            <td>{{ $institution->slug }}</td>
                             <td>{{ $institution->name }}</td>
                             <td>{{ $institution->user->name }}</td>
                             <td>{{ $institution->phone }}</td>
@@ -47,10 +47,17 @@
                 
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
-                        <form>
+                        <form id="institution-info-form">
+                            <div class="form-group">
+                                <label for="institution_name">{{ __('Institution Name') }}</label>
+                                <input type="text" class="form-control" name="institution_name" id="institution_name" placeholder="{{ __('Institution Name') }}">
+                                <span class="invalid-feedback" role="alert">
+                                    <strong id="error-institution_name"></strong>
+                                </span>
+                            </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="email">{{ __('Email') }}</label>
+                                    <label for="email">{{ __('User Email') }}</label>
                                     <input type="email" class="form-control" name="email" id="email" placeholder="{{ __('Email') }}" required>
                                     <span class="invalid-feedback" role="alert">
                                         <strong id="error-email"></strong>
@@ -78,7 +85,8 @@
                                     <strong id="error-address"></strong>
                                 </span>
                             </div>
-                            <button type="submit" class="btn btn-primary">{{ __('Edit') }}</button>
+                            <button type="button" id="edit-institution-info-btn" class="btn btn-primary" onclick="beginEditInstitutionInfo()">{{ __('Edit') }}</button>
+                            <button type="button" id="update-institution-info-btn" class="btn btn-primary" style="display:none" onclick="beginEditInstitutionInfo()">{{ __('Update') }}</button>
                         </form>
                     </div>
                     </div>
@@ -136,7 +144,42 @@
             institutionListTable.on('select', function(e, dt, type, indexes){
                 var rowData = institutionListTable.row(indexes[0]).data()
                 console.log(rowData);
-            })
+                var institution_slug = rowData[0];
+                axios.post('{{ route("get_institution_data") }}', {
+                    slug: institution_slug
+                }).then(function(response){
+                    console.log(response);
+                    var address = response.data.address;
+                    var phone = response.data.phone;
+                    var institution_name = response.data.name;
+                    var user_email = response.data.user.email;
+                    var user_name = response.data.user.name;
+
+                    $('#institution_name').val(institution_name);
+                    $('#address').val(address);
+                    $('#phone').val(phone);
+                    $('#email').val(user_email);
+                    $('#username').val(user_name);
+
+                    forbidEditInstitutionInfo();
+                }).catch(function(error){
+                    console.log(error);
+                });
+            });
+
+
         });
+
+        function beginEditInstitutionInfo(){
+            enableElements($('#institution-info-form input'));
+            $('#edit-institution-info-btn').hide();
+            $('#update-institution-info-btn').show();
+        }
+
+        function forbidEditInstitutionInfo(){
+            disableElements($('#institution-info-form input'));
+            $('#edit-institution-info-btn').show();
+            $('#update-institution-info-btn').hide();
+        }
     </script>
 @endsection

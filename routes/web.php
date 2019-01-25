@@ -22,3 +22,4 @@ Route::post('/admin_register', 'Auth\AdminController@registerAdmin')->name('admi
 Route::get('/institution_register', 'Auth\AdminController@showRegisterInstitutionForm')->name('institution_register_view')->middleware('permission:manage.institutions');
 Route::post('/institution_register', 'Auth\AdminController@registerInstitution')->name('institution_register')->middleware('permission:manage.institutions');
 Route::get('/institution_index', 'InstitutionController@index')->name('institution_index')->middleware('permission:manage.institutions');
+Route::post('/get_institution_data', 'InstitutionController@getInstitutionData')->name('get_institution_data')->middleware('permission:manage.institutions');

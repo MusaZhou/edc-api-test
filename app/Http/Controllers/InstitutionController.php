@@ -11,4 +11,9 @@ class InstitutionController extends Controller
         $institution_list = Institution::all();
         return view('institution_index', ['institution_list' => $institution_list]); 
     }
+
+    public function getInstitutionData(Request $request){
+        $institution = Institution::where('slug', $request->slug)->with('user')->first();
+        return $institution->toJson();
+    }
 }
