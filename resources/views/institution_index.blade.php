@@ -12,7 +12,7 @@
             <table id="institution_list" class="table table-striped table-bordered table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Slug</th>
+                        <th>ID</th>
                         <th>{{ __('Institution Name') }}</th>
                         <th>{{ __('User Name') }}</th>
                         <th>{{ __('Phone') }}</th>
@@ -22,7 +22,7 @@
                 <tbody>
                     @foreach ($institution_list as $institution)
                         <tr>
-                            <td>{{ $institution->slug }}</td>
+                            <td>{{ $institution->id }}</td>
                             <td>{{ $institution->name }}</td>
                             <td>{{ $institution->user->name }}</td>
                             <td>{{ $institution->phone }}</td>
@@ -48,6 +48,8 @@
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
                         <form id="institution-info-form">
+                            <input type="hidden" name="institution_id" id="institution_id">
+                            <input type="hidden" name="user_id" id="user_id">
                             <div class="form-group">
                                 <label for="institution_name">{{ __('Institution Name') }}</label>
                                 <input type="text" class="form-control" name="institution_name" id="institution_name" placeholder="{{ __('Institution Name') }}">
@@ -86,7 +88,7 @@
                                 </span>
                             </div>
                             <button type="button" id="edit-institution-info-btn" class="btn btn-primary" onclick="beginEditInstitutionInfo()">{{ __('Edit') }}</button>
-                            <button type="button" id="update-institution-info-btn" class="btn btn-primary" style="display:none" onclick="beginEditInstitutionInfo()">{{ __('Update') }}</button>
+                            <button type="button" id="update-institution-info-btn" class="btn btn-primary" onclick="updateInstitutionInfo()" style="display:none">{{ __('Update') }}</button>
                         </form>
                     </div>
                     </div>
@@ -144,9 +146,9 @@
             institutionListTable.on('select', function(e, dt, type, indexes){
                 var rowData = institutionListTable.row(indexes[0]).data()
                 console.log(rowData);
-                var institution_slug = rowData[0];
+                var institution_id = rowData[0];
                 axios.post('{{ route("get_institution_data") }}', {
-                    slug: institution_slug
+                    institution_id: institution_id
                 }).then(function(response){
                     console.log(response);
                     var address = response.data.address;
@@ -154,12 +156,15 @@
                     var institution_name = response.data.name;
                     var user_email = response.data.user.email;
                     var user_name = response.data.user.name;
+                    var user_id = response.data.user.id;
 
+                    $('#institution_id').val(institution_id);
                     $('#institution_name').val(institution_name);
                     $('#address').val(address);
                     $('#phone').val(phone);
                     $('#email').val(user_email);
                     $('#username').val(user_name);
+                    $('#user_id').val(user_id);
 
                     forbidEditInstitutionInfo();
                 }).catch(function(error){
@@ -180,6 +185,27 @@
             disableElements($('#institution-info-form input'));
             $('#edit-institution-info-btn').show();
             $('#update-institution-info-btn').hide();
+        }
+
+        function updateInstitutionInfo(){
+            axios({
+                    method: 'post',
+                    url: '{{ route("update_institution_data") }}',
+                    data: new FormData($('#institution-info-form')[0]),
+                    config: { headers: {'Content-Type': 'multipart/form-data' }}
+                })
+                .then(function (response) {
+                    forbidEditInstitutionInfo();
+                })
+                .catch(function (error) {
+                    console.log(error.response.data.errors);
+                    var errors = error.response.data.errors;
+                    for (key in errors){
+                        var error_element_id = '#error-'+key;
+                        $(error_element_id).text(errors[key]);
+                        $(error_element_id).parent('span').siblings('input').addClass('is-invalid');
+                    }
+                });
         }
     </script>
 @endsection

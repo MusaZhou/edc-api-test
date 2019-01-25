@@ -9,7 +9,7 @@ class Institution extends SoftDeleteModel
     use Sluggable;
 
     protected $fillable = ['name', 'phone', 'address', 'user_id'];
-    protected $visible = ['name', 'address', 'phone', 'slug', 'user'];
+    protected $visible = ['name', 'address', 'phone', 'slug', 'user', 'id'];
     
     public function user(){
         return $this->belongsTo('App\Model\User')->withDefault();

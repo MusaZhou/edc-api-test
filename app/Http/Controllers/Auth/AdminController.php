@@ -72,7 +72,7 @@ class AdminController extends Controller
 
         event(new Registered($user = $this->createInstitution($request->all())));
 
-        return redirect($this->redirectPath());
+        return redirect(route('institution_index'));
     }
 
     /**
@@ -87,7 +87,7 @@ class AdminController extends Controller
             'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'institution' => ['required', 'string', 'max:255'],
+            'institution' => ['required', 'string', 'max:255', 'unique:institutions,name'],
             'address' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:20']
         ]);
