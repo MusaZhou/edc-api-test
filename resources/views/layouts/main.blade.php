@@ -160,6 +160,7 @@
     <script src="{{ asset('js/popper.min.js') }}" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- jQuery Custom Scroller -->
     <script src="{{ asset('js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
